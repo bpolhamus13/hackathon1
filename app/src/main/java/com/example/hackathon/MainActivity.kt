@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.BufferedReader
 import kotlin.random.Random
 import android.R.attr.apiKey
+import android.content.Intent
 import com.yelp.fusion.client.connection.YelpFusionApi
 import com.yelp.fusion.client.models.SearchResponse
 import okhttp3.Response
@@ -19,24 +20,11 @@ import com.yelp.fusion.client.models.Business
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var term : String
+    private lateinit var rating : String
+    private lateinit var closed : String
     private lateinit var textMessage: TextView
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                textMessage.setText(R.string.title_home)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_dashboard -> {
-                textMessage.setText(R.string.title_dashboard)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-                textMessage.setText(R.string.title_notifications)
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,23 +32,28 @@ class MainActivity : AppCompatActivity() {
         if (android.os.Build.VERSION.SDK_INT > 9) {
             val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
-        }
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
-        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
-        val rand = List(10){ Random.nextInt(0,100)}
-
-        executeCommand()
+    }
 
         button.setOnClickListener {
-            pullRestaraunt()
+            term = spinner.selectedItem.toString()
+            rating = spinner2.selectedItem.toString()
+            closed = spinner4.selectedItem.toString()
+
+
+
+            val tellMeMore = Intent(this, tellmemore::class.java)
+            tellMeMore.putExtra("Term", term)
+            tellMeMore.putExtra("rating", rating)
+            tellMeMore.putExtra("closed", closed)
+            startActivity(tellMeMore)
+
+
         }
 
 
     }
 
-    private fun pullRestaraunt() {
+    private fun pullRestaraunt() :ArrayList<Business> {
 
         var apiKey : String =  "jxjG2G9MV20rNsovJ77zOtnsu665qcvWfDXHMgBWWIKdZuwhk-U2UJ0fJLnCy0Css5QrzJWAllz3l1mJgTxXPmAS2QtKvurBj1AALzoo5dKsDg63iFGZ0G8EdRHDXHYx"
 
@@ -75,20 +68,8 @@ class MainActivity : AppCompatActivity() {
         val call = yelpFusionApi.getBusinessSearch(params)
         val response = call.execute()
 
-       var business: ArrayList<Business> = response.body().businesses
-
-    }
-
-    private fun executeCommand(): String {
-        var string : String = "no text"
-
-        var apiKey : String =  "jxjG2G9MV20rNsovJ77zOtnsu665qcvWfDXHMgBWWIKdZuwhk-U2UJ0fJLnCy0Css5QrzJWAllz3l1mJgTxXPmAS2QtKvurBj1AALzoo5dKsDg63iFGZ0G8EdRHDXHYx"
-
-        val apiFactory = YelpFusionApiFactory()
-        val yelpFusionApi = apiFactory.createAPI(apiKey)
-
-
-        return string
+        var business: ArrayList<Business> = response.body().businesses
+        return business
     }
 
 

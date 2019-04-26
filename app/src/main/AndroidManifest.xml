@@ -13,22 +13,18 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".tellmemore"
-                android:label="@string/title_activity_tellmemore"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".find"
-                android:label="@string/title_activity_find"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".Bites"
-                android:label="@string/title_activity_bites"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".Bio"
-                android:label="@string/title_activity_bio"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
