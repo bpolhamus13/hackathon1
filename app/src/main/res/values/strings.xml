@@ -3,4 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_activity_bio">Bio</string>
+    <string name="title_activity_bites">Bites</string>
+    <string name="title_activity_find">find</string>
+    <string name="title_activity_tellmemore">tellmemore</string>
 </resources>
