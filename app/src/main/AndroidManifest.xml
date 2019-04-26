@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.hackathon">
+
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -10,6 +11,26 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity
+                android:name=".tellmemore"
+                android:label="@string/title_activity_tellmemore"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".find"
+                android:label="@string/title_activity_find"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".Bites"
+                android:label="@string/title_activity_bites"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".Bio"
+                android:label="@string/title_activity_bio"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
                 android:name=".MainActivity"
                 android:label="@string/app_name">
