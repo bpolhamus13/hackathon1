@@ -14,16 +14,12 @@ import com.yelp.fusion.client.models.SearchResponse
 import okhttp3.Response
 import android.os.AsyncTask.execute
 import android.os.StrictMode
-
-
-
-
+import com.yelp.fusion.client.models.Business
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var textMessage: TextView
-
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -53,14 +49,46 @@ class MainActivity : AppCompatActivity() {
 
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        val yelpCallback = YelpCallback()
+        val rand = List(10){ Random.nextInt(0,100)}
 
+        executeCommand()
 
         button.setOnClickListener {
-            textView2.setText(yelpCallback.pullRestaraunt())
-
-
+            pullRestaraunt()
         }
+
+
+    }
+
+    private fun pullRestaraunt() {
+
+        var apiKey : String =  "jxjG2G9MV20rNsovJ77zOtnsu665qcvWfDXHMgBWWIKdZuwhk-U2UJ0fJLnCy0Css5QrzJWAllz3l1mJgTxXPmAS2QtKvurBj1AALzoo5dKsDg63iFGZ0G8EdRHDXHYx"
+
+        val apiFactory = YelpFusionApiFactory()
+        val yelpFusionApi = apiFactory.createAPI(apiKey)
+        val params = HashMap<String, String>()
+
+        params.put("term", "indian food")
+        params.put("location", "Cincinnati")
+        params.put("limit", "20")
+
+        val call = yelpFusionApi.getBusinessSearch(params)
+        val response = call.execute()
+
+       var business: ArrayList<Business> = response.body().businesses
+
+    }
+
+    private fun executeCommand(): String {
+        var string : String = "no text"
+
+        var apiKey : String =  "jxjG2G9MV20rNsovJ77zOtnsu665qcvWfDXHMgBWWIKdZuwhk-U2UJ0fJLnCy0Css5QrzJWAllz3l1mJgTxXPmAS2QtKvurBj1AALzoo5dKsDg63iFGZ0G8EdRHDXHYx"
+
+        val apiFactory = YelpFusionApiFactory()
+        val yelpFusionApi = apiFactory.createAPI(apiKey)
+
+
+        return string
     }
 
 

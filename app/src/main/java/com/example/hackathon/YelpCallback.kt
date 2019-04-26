@@ -1,5 +1,6 @@
 package com.example.hackathon
 
+import android.os.AsyncTask
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
 
 class YelpCallback {
@@ -19,6 +20,10 @@ class YelpCallback {
 
         val call = yelpFusionApi.getBusinessSearch(params)
         val response = call.execute()
+
+
+
         return response.toString()
     }
+
 }
